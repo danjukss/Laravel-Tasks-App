@@ -9,15 +9,13 @@
 
                 
 				  <div class="panel-body">
-				  
-				   	<form class="form-horizontal" method="POST" action="{{ url('/tasks') }}/{{ $task->id }}">
-				   	{!! csrf_field() !!}
-                    {{ method_field('PUT') }}
+				    {!! Form::open(['method' => 'PUT', 'url' => 'tasks/'.$task->id, 'class' => 'form-horizontal']) !!}
+
 				   	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <label class="col-md-3 control-label">Uzdevums</label>
 
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="name" value="{{ $task->name }}">
+                            {!! Form::text('name', $task->name, ['class' => 'form-control']) !!}
 
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -29,11 +27,11 @@
 
                     <div class="form-group">
                         <div class="col-md-7 col-md-offset-3">
-                        	<input type="submit" class="btn btn-primary" value="labot">
+                        	{!! Form::submit('Labot!', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
 				   		
-				   	</form>
+				    {!! Form::close() !!}
 				  </div>
 				
             </div>

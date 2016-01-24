@@ -11,10 +11,10 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('groups')->insert(
+        DB::table('groups')->insert([
         	['name' => 'Lietotājs', 'permissions' => 0, 'created_by' => 1],
         	['name' => 'Admins', 'permissions' => 1, 'created_by' => 1],
         	['name' => 'Moderators', 'permissions' => 1, 'created_by' => 1]
-        );
+        ]);
     }
 }

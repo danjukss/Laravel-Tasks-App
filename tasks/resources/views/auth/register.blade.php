@@ -7,14 +7,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                        {!! csrf_field() !!}
 
+                    {!! Form::open(['class' => 'form-horizontal']) !!}
+                
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Vārds</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label class="col-md-4 control-label">E-Pasta adrese</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                {!! Form::email('email', old('email'), ['class' => 'form-control']) !!}
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -42,7 +42,7 @@
                             <label class="col-md-4 control-label">Parole</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
+                            {!! Form::password('password',  ['class' => 'form-control']) !!}
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -56,8 +56,8 @@
                             <label class="col-md-4 control-label">Atkārtot paroli</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
-
+                            {!! Form::password('password_confirmation',  ['class' => 'form-control']) !!}
+                            
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -68,12 +68,10 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i>Reģistrēties
-                                </button>
+                                {!! Form::submit('Reģistrēties', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

@@ -35,11 +35,11 @@ class TaskController extends Controller
 		]);
 
 		$user = $request->user();
-		$user->increment('tasks');
+		$user->increment('task_count');
 
 		$user->save();
 
-		return redirect('/home');
+		return redirect('/');
 
     	
     }
@@ -60,26 +60,28 @@ class TaskController extends Controller
 
     public function update(StoreTaskRequest $request, $id) {
         $this->middleware('auth');
-    	$user = Auth::user();
-    	$task = Tasks::find($id);
 
-    	if(!$task || !$user->is('admin')) {
-            if($task->user->id != $user->id) {
-                return redirect('/');
-            }
-        }
+    	$task = auth()->user()->tasks()->findOrFail($id);
 
-    	$task->name = $request->name;
+
+    	$task->update([
+            'name' => $request->name
+            ]);
 
     	$task->save();
-    	return redirect('/');
+    	return redirect()->back()->withSuccess('Izdevās!');
     }
 
-    public function destroy($id) {
+    public function destroy(Request $request, $id) {
 
     	$task = Tasks::find($id);
 
     	$task->delete();
+
+        $user = $request->user();
+        $user->decrement('task_count');
+
+        $user->save();
 
     	return redirect('/');
     }

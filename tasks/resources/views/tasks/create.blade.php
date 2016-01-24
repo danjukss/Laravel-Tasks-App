@@ -9,14 +9,13 @@
 
                 
 				  <div class="panel-body">
-				   	<form class="form-horizontal" method="POST" action="{{ url('/tasks') }}">
-				   	{!! csrf_field() !!}
+                  {!! Form::open(['url' => 'tasks', 'class' => 'form-horizontal']) !!}
 				   	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+
                         <label class="col-md-3 control-label">Uzdevums</label>
 
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-
+                            {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
                             @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -29,7 +28,7 @@
                         <label class="col-md-3 control-label">Apraks</label>
 
                         <div class="col-md-7">
-                            <textarea class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
+                            {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'rows' => 4]) !!}
 
                             @if ($errors->has('description'))
                                 <span class="help-block">
@@ -41,10 +40,10 @@
 
                     <div class="form-group">
                         <div class="col-md-7 col-md-offset-3">
-                            <input type="submit" class="btn btn-primary" value="Pievienot!">
+                            {!! Form::submit('Pievienot!', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
-				   	</form>
+				   	{!! Form::close() !!}
 				  </div>
 				
             </div>

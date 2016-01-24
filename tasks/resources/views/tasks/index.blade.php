@@ -20,7 +20,15 @@
 				   		<small>
 				   			<i>- pievienoja - {{ $task->user->name }} - {{ $task->created_at }} 
 					   			@if(!Auth::guest() && Auth::user()->id == $task->user->id || !Auth::guest() && Auth::user()->is('admin')) 
-					   				<a href="{{ url('/tasks') }}/{{ $task->id }}/edit">Labot</a> | <div style="float: right;"><form method="post" action="{{ url('/tasks/') }}/{{ $task->id }}">{!! csrf_field() !!}{{ method_field('DELETE') }}<button class="btn btn-danger" type="submit">Delete</button></form></div> <div style="clear: both;"></div>
+					   				<a href="{{ url('/tasks') }}/{{ $task->id }}/edit">Labot</a> | 
+
+					   				<div style="float: right;">
+					   					{!! Form::open(['method' => 'DELETE', 'url' => 'tasks/'.$task->id]) !!}
+					   						{!! Form::submit('Delete!', ['class' => 'btn btn-danger']) !!}
+					   					{!! Form::close() !!}
+									</div> 
+
+					   				<div style="clear: both;"></div>
 					   			@endif
 				   			</i>
 				   		</small><br>

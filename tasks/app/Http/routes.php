@@ -23,20 +23,24 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-//guest routi
+
 Route::group(['middleware' => ['web']], function () {
 	//Auth
     Route::auth();
 
-    //Uzdevumu routi
+    //Tasks route's
     Route::get('/tasks/my', 'TaskController@my');
-    Route::resource('tasks', 'TaskController');
     Route::get('/', 'TaskController@index');
+    Route::resource('tasks', 'TaskController');
 
-    //Admina routi
-    Route::resource('admin', 'AdminController');
+    //Admin route's
+    Route::resource('admin', 'Admin\AdminController');
 
-    //profila routi
+    //Profile route's
     Route::resource('profile', 'ProfileController');
+
+    //
+
+    Route::resource('test', 'TestsController');
 });
 

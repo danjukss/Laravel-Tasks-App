@@ -34,10 +34,6 @@ class User extends Authenticatable
         return $this->hasMany(Tasks::class);
     }
 
-    public function allTasks() {
-        return $this->hasMany(Tasks::class);
-    }
-
     public function is($role) {
         
         $role = strtolower($role);
