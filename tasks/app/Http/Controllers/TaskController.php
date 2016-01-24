@@ -13,8 +13,6 @@ use Auth;
 class TaskController extends Controller
 {
 	public function index(Request $request) {
-        $this->middleware('web');
-
 		$tasks = Tasks::orderBy('id', 'desc')->paginate(2);
 		
 		
@@ -46,14 +44,7 @@ class TaskController extends Controller
 
     public function edit($id) {
         $this->middleware('auth');
-    	$user = Auth::user();
-    	$task = Tasks::find($id);
-
-        if(!$task || !$user->is('admin')) {
-            if($task->user->id != $user->id) {
-                return redirect('/');
-            }
-        }
+    	$task = auth()->user()->tasks()->find($id);
     	
     	return view('tasks.edit', ['task' => $task]);
     }
@@ -61,7 +52,7 @@ class TaskController extends Controller
     public function update(StoreTaskRequest $request, $id) {
         $this->middleware('auth');
 
-    	$task = auth()->user()->tasks()->findOrFail($id);
+    	$task = auth()->user()->tasks()->find($id);
 
 
     	$task->update([

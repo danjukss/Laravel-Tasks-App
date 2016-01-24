@@ -22,7 +22,7 @@ class ProfileController extends Controller
     }
 
      public function update(Requests\UpdateProfileRequest $request, $id) {
-    	$user = Auth::user($id);
+    	$user = $request->user();
 
     	$user->name = $request->name;
     	$user->lastname = $request->lastname;

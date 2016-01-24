@@ -36,7 +36,7 @@
                         <label class="col-md-3 control-label">Uzvārds</label>
 
                         <div class="col-md-7">
-                            {!! Form::text('name', $user->lastname, ['class' => 'form-control']) !!}
+                            {!! Form::text('lastname', $user->lastname, ['class' => 'form-control']) !!}
 
                             @if ($errors->has('lastname'))
                                 <span class="help-block">
@@ -60,4 +60,4 @@
         </div>
     </div>
 	</div>
-@endsection
+@stop
