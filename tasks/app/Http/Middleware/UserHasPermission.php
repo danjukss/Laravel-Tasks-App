@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class PermMiddleware
+class UserHasPermission
 {
     /**
      * Handle an incoming request.
@@ -17,18 +17,10 @@ class PermMiddleware
      */
     public function handle($request, Closure $next)
     {
-       
 
-        if(Auth::guest()) {
-            return redirect('/login');
-        }
-
-        $user = Auth::user();
-        if(!$user->is('admin')) {
+        if(!Auth::user()->is('admin')) {
             return redirect('/');
         }
-
-        
 
         return $next($request);
     }

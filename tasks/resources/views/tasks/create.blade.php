@@ -15,7 +15,7 @@
                         <label class="col-md-3 control-label">Uzdevums</label>
 
                         <div class="col-md-7">
-                            {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
                             @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -28,7 +28,7 @@
                         <label class="col-md-3 control-label">Apraks</label>
 
                         <div class="col-md-7">
-                            {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'rows' => 4]) !!}
+                            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) !!}
 
                             @if ($errors->has('description'))
                                 <span class="help-block">
@@ -50,4 +50,4 @@
         </div>
     </div>
 	</div>
-@stop
+@endsection

@@ -9,13 +9,13 @@
 
                 
 				  <div class="panel-body">
-				    {!! Form::open(['method' => 'PUT', 'url' => 'tasks/'.$task->id, 'class' => 'form-horizontal']) !!}
+				    {!! Form::model($tasks, ['method' => 'PUT', 'route' => ['tasks.update', $tasks->id], 'class' => 'form-horizontal']) !!}
 
 				   	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <label class="col-md-3 control-label">Uzdevums</label>
 
                         <div class="col-md-7">
-                            {!! Form::text('name', $task->name, ['class' => 'form-control']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
 
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -38,4 +38,4 @@
         </div>
     </div>
 	</div>
-@stop
+@endsection

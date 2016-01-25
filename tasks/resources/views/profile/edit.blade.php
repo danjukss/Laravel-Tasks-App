@@ -14,7 +14,7 @@
                     <div class="alert alert-success" role="alert">{{ Session::get('update_profile') }}</div>
                   @endif
 				    
-                    {!! Form::open(['method' => 'PUT', 'url' => 'profile/'.$user->id, 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($user, ['method' => 'PUT', 'route' => ['profile.update', $user->id], 'class' => 'form-horizontal']) !!}
 
                     
 				   	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -22,7 +22,7 @@
                         <label class="col-md-3 control-label">Vārds</label>
 
                         <div class="col-md-7">
-                            {!! Form::text('name', $user->name, ['class' => 'form-control']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
                         
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -36,7 +36,7 @@
                         <label class="col-md-3 control-label">Uzvārds</label>
 
                         <div class="col-md-7">
-                            {!! Form::text('lastname', $user->lastname, ['class' => 'form-control']) !!}
+                            {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
 
                             @if ($errors->has('lastname'))
                                 <span class="help-block">
@@ -60,4 +60,4 @@
         </div>
     </div>
 	</div>
-@stop
+@endsection

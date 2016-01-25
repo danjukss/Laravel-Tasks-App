@@ -26,12 +26,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*public function hasPermission($permission) {
-
-    }*/
-
     public function tasks() {
-        return $this->hasMany(Tasks::class);
+        return $this->hasMany(Task::class);
     }
 
     public function is($role) {

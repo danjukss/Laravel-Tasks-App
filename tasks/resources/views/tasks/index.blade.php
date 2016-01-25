@@ -23,7 +23,7 @@
 					   				<a href="{{ url('/tasks') }}/{{ $task->id }}/edit">Labot</a> | 
 
 					   				<div style="float: right;">
-					   					{!! Form::open(['method' => 'DELETE', 'url' => 'tasks/'.$task->id]) !!}
+					   					{!! Form::model($task, ['method' => 'DELETE', 'route' => ['tasks.destroy', $task->id]]) !!}
 					   						{!! Form::submit('Delete!', ['class' => 'btn btn-danger']) !!}
 					   					{!! Form::close() !!}
 									</div> 
@@ -44,4 +44,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

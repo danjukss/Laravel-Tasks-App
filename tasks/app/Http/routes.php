@@ -29,18 +29,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::auth();
 
     //Tasks route's
-    Route::get('/tasks/my', 'TaskController@my');
-    Route::get('/', 'TaskController@index');
-    Route::resource('tasks', 'TaskController');
-
-    //Admin route's
-    Route::resource('admin', 'Admin\AdminController');
+    Route::get('/tasks/my', 'TasksController@my');
+    Route::get('/', 'TasksController@index');
+    Route::resource('tasks', 'TasksController');
 
     //Profile route's
-    Route::resource('profile', 'ProfileController');
-
-    //
-
-    Route::resource('test', 'TestsController');
+    Route::resource('profile', 'ProfileController');  
 });
 
+Route::group(['middleware' => ['web', 'auth']], function() {
+    //Admin route's
+    Route::resource('admin', 'Admin\AdminController');
+});

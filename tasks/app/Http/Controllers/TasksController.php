@@ -7,53 +7,45 @@ use Validator;
 use App\Http\Requests;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Controllers\Controller;
-use App\Tasks;
+use App\Task;
 use Auth;
 
-class TaskController extends Controller
+class TasksController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth', ['except' => 'index']);
+    }
+
 	public function index(Request $request) {
-		$tasks = Tasks::orderBy('id', 'desc')->paginate(2);
-		
-		
+		$tasks = Task::orderBy('id', 'desc')->paginate(2);
+
 		return view('tasks.index', ['tasks' => $tasks]);
 	}
 
     public function create() {
-        $this->middleware('auth');
     	return view('tasks.create');
     }
 
     public function store(StoreTaskRequest $request) {
-        $this->middleware('auth');
+        $user = $request->user();
 
-		$request->user()->tasks()->create([
+		$user->tasks()->create([
 			'name' => $request->name,
 			'description' => $request->description,
 		]);
-
-		$user = $request->user();
+        
 		$user->increment('task_count');
-
 		$user->save();
 
 		return redirect('/');
-
-    	
     }
 
-    public function edit($id) {
-        $this->middleware('auth');
-    	$task = auth()->user()->tasks()->find($id);
-    	
-    	return view('tasks.edit', ['task' => $task]);
+    public function edit(Task $tasks) {
+    	return view('tasks.edit', compact('tasks'));
     }
 
     public function update(StoreTaskRequest $request, $id) {
-        $this->middleware('auth');
-
-    	$task = auth()->user()->tasks()->find($id);
-
+        $task = auth()->user()->tasks()->find($id);
 
     	$task->update([
             'name' => $request->name
@@ -64,14 +56,11 @@ class TaskController extends Controller
     }
 
     public function destroy(Request $request, $id) {
-
-    	$task = Tasks::find($id);
-
+    	$task = Task::find($id);
     	$task->delete();
 
         $user = $request->user();
         $user->decrement('task_count');
-
         $user->save();
 
     	return redirect('/');
@@ -80,8 +69,8 @@ class TaskController extends Controller
     public function my() {
         $this->middleware('auth');
         $user = Auth::user();
-        $tasks = $user->allTasks;
+        $tasks = $user->tasks;
 
-        return view('tasks.my', ['tasks' => $tasks]);
+        return view('tasks.my', compact('tasks'));
     }
 }
