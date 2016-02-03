@@ -24,6 +24,7 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
+        Auth::user()->lastSeen();
 
         return $next($request);
     }

@@ -39,5 +39,7 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => ['web', 'auth']], function() {
     //Admin route's
+    Route::resource('admin/tasks', 'Admin\AdminTasksController');
     Route::resource('admin', 'Admin\AdminController');
+    
 });

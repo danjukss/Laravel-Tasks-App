@@ -28,6 +28,12 @@ class ProfileController extends Controller
     	$user->lastname = $request->lastname;
 
     	$user->save();
+
+        $user->last_activity()->create([
+            'type' => 'profile',
+            'place_id' => $user->id
+        ]);
+
     	$request->session()->flash('update_profile', "Profils tika veiksmīgi izlabots!");
     	return redirect('/profile/' . $id . '/edit');
     }

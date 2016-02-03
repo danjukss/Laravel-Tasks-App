@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
 
     <style>
         body {
@@ -80,7 +81,30 @@
         </div>
     </nav>
 
-    @yield('content')
+        @yield('content')
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Lietotāju informācija</div>
+
+                       
+                          <div class="panel-body">
+                            Lietotaji online:
+
+                            @if(!$online->count()) 
+                                <div class="alert alert-info" role="alert">Pašlaik neviens nav pieslēdzies!</div>
+                            @else
+                                @foreach($online as $user) 
+                                    {{ $user->email }}
+                                @endforeach 
+                            @endif
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

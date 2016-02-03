@@ -9,6 +9,9 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Controllers\Controller;
 use App\Task;
 use Auth;
+use DB;
+use Carbon\Carbon;
+use App\User;
 
 class TasksController extends Controller
 {
@@ -16,7 +19,7 @@ class TasksController extends Controller
         $this->middleware('auth', ['except' => 'index']);
     }
 
-	public function index(Request $request) {
+	public function index() {
 		$tasks = Task::orderBy('id', 'desc')->paginate(2);
 
 		return view('tasks.index', ['tasks' => $tasks]);
@@ -29,13 +32,20 @@ class TasksController extends Controller
     public function store(StoreTaskRequest $request) {
         $user = $request->user();
 
-		$user->tasks()->create([
+		$last_id = $user->tasks()->create([
 			'name' => $request->name,
 			'description' => $request->description,
-		]);
+		])->id;
         
 		$user->increment('task_count');
 		$user->save();
+
+        $user->last_activity()->create([
+            'type' => 'task',
+            'place_id' => $last_id
+        ]);
+
+        $user->save();
 
 		return redirect('/');
     }

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Auth;
 use App\Group;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -30,6 +31,10 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
+    public function last_activity() {
+        return $this->hasMany(LastActivity::class);
+    }
+
     public function is($role) {
         
         $role = strtolower($role);
@@ -39,6 +44,22 @@ class User extends Authenticatable
         $group = Group::find($group_id);
 
         return ($group->permissions == $roles[$role]) ? true : false;
+    }
+
+    public function lastSeen() {
+        $user = Auth::user();
+        $diff = Carbon::now()->diffInMinutes(Carbon::parse($user->last_seen));
+
+        if($diff > 5) {
+            $user->last_seen = Carbon::now();
+            $user->save();
+        }   
+    }
+
+    public function scopeOnline($query) {
+        $date = Carbon::now();
+        $checkDate = $date->subMinutes(15);
+        return $query->where('last_seen', '>=', $checkDate);
     }
 
 }
