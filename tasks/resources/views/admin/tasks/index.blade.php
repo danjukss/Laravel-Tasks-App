@@ -29,12 +29,8 @@
 	  </div>
 	  <div class="panel-body">
 
-	  @if (Session::has('task_delete'))
-        <div class="alert alert-success" role="alert">{{ Session::get('task_delete') }}</div>
-      @endif
-
-       @if (Session::has('task_create'))
-        <div class="alert alert-success" role="alert">{{ Session::get('task_create') }}</div>
+	  @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
       @endif
 
 	    <table class="table table-bordered">
@@ -60,7 +56,8 @@
                     </td>
                     
                     <td>
-	                    {{ Form::model($task, ['method' => 'DELETE', 'action' => ['Admin\AdminTasksController@destroy', $task->id]]) }}
+
+	                    {{ Form::model($task, ['method' => 'DELETE', 'route' => ['admin.tasks.destroy', $task->id]]) }}
 	                    	{{ Form::submit('Dzēst', ['class' => 'btn btn-danger m-r-5 m-b-5']) }}
 	                    {{ Form::close() }}
                     </td>

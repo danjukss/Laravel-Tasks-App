@@ -45,28 +45,14 @@ class AdminTasksController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $user = $request->user();
-
         $user->tasks()->create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
-        
         $user->increment('task_count');
         $user->save();
-        $request->session()->flash('task_create', "Uzdevums veiksmīgi izveidots!");
 
-        return redirect('admin/tasks');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect('admin/tasks')->withSuccess('Uzdevums veiksmīgi izveidots!');
     }
 
     /**
@@ -87,15 +73,10 @@ class AdminTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTaskRequest $request, $id) {
-        $task = Task::find($id);
-
-        $task->name = $request->name;
-        $task->save();
-
-        $request->session()->flash('task_update', "Uzdevums veiksmīgi labots!");
-
-        return redirect()->back()->withSuccess('Izdevās!');
+    public function update(StoreTaskRequest $request, Task $tasks) {
+        $tasks->name = $request->name;
+        $tasks->save();
+        return redirect()->back()->withSuccess('Uzdevums veiksmīgi labots!');
     }
 
     /**
@@ -104,15 +85,12 @@ class AdminTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id) {
-        $task = Task::find($id);
-        $task->delete();
-
+    public function destroy(Request $request, Task $tasks) {
+        $tasks->delete();
         $user = $request->user();
         $user->decrement('task_count');
         $user->save();
-        $request->session()->flash('task_delete', "Uzdevums veiksmīgi izdzēsts!");
+        return redirect()->back()->withSuccess('Uzdevums veiksmīgi izdzēsts!');
 
-        return redirect('admin/tasks');
     }
 }

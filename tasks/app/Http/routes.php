@@ -34,12 +34,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('tasks', 'TasksController');
 
     //Profile route's
-    Route::resource('profile', 'ProfileController');  
+    Route::resource('profile', 'ProfileController', [
+        'only' => ['edit', 'update']
+    ]);
+    Route::resource('test', 'TestsController');  
 });
 
 Route::group(['middleware' => ['web', 'auth']], function() {
     //Admin route's
-    Route::resource('admin/tasks', 'Admin\AdminTasksController');
-    Route::resource('admin', 'Admin\AdminController');
-    
+    Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+        Route::resource('tasks', 'AdminTasksController');
+        Route::resource('/', 'AdminController');
+    });  
+
 });

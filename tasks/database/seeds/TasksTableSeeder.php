@@ -12,25 +12,7 @@ class TasksTableSeeder extends Seeder
     public function run()
     {
         DB::table('tasks')->insert([
-        	['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-        	['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            ['name' => 'Test', 'description' => 'asd', 'user_id' => 1],
-            
+        	['name' => 'Test', 'description' => 'asd', 'user_id' => 1], 
         ]);
     }
 }

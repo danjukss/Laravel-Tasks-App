@@ -16,7 +16,6 @@ class AdminController extends Controller
 	}
     public function index() {
     	$activities = LastActivity::orderBy('id', 'DESC')->get();
-
     	return view('admin.index', compact('activities'));
     }
 }

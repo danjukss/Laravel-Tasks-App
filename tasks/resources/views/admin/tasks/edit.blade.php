@@ -29,12 +29,12 @@
 	  </div>
 	  <div class="panel-body">
 
-	  @if (Session::has('task_update'))
-        <div class="alert alert-success" role="alert">{{ Session::get('task_update') }}</div>
+	  @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
       @endif
 
 	    <div class="panel-body">
-				    {!! Form::model($tasks, ['method' => 'PUT', 'action' => ['Admin\AdminTasksController@update', $tasks->id], 'class' => 'form-horizontal']) !!}
+				    {!! Form::model($tasks, ['method' => 'PATCH', 'route' => ['admin.tasks.update', $tasks->id], 'class' => 'form-horizontal']) !!}
 
 				   	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <label class="col-md-3 control-label">Uzdevums</label>

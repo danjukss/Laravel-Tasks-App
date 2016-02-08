@@ -10,11 +10,11 @@
                 
 				  <div class="panel-body">
 
-                  @if (Session::has('update_profile'))
-                    <div class="alert alert-success" role="alert">{{ Session::get('update_profile') }}</div>
+                  @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
                   @endif
 				    
-                    {!! Form::model($user, ['method' => 'PUT', 'route' => ['profile.update', $user->id], 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->id], 'class' => 'form-horizontal']) !!}
 
                     
 				   	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

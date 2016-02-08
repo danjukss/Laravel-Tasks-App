@@ -21,7 +21,6 @@ class TasksController extends Controller
 
 	public function index() {
 		$tasks = Task::orderBy('id', 'desc')->paginate(2);
-
 		return view('tasks.index', ['tasks' => $tasks]);
 	}
 
@@ -36,44 +35,16 @@ class TasksController extends Controller
 			'name' => $request->name,
 			'description' => $request->description,
 		])->id;
-        
+    
 		$user->increment('task_count');
 		$user->save();
-
         $user->last_activity()->create([
             'type' => 'task',
             'place_id' => $last_id
         ]);
-
         $user->save();
 
 		return redirect('/');
-    }
-
-    public function edit(Task $tasks) {
-    	return view('tasks.edit', compact('tasks'));
-    }
-
-    public function update(StoreTaskRequest $request, $id) {
-        $task = auth()->user()->tasks()->find($id);
-
-    	$task->update([
-            'name' => $request->name
-            ]);
-
-    	$task->save();
-    	return redirect()->back()->withSuccess('Izdevās!');
-    }
-
-    public function destroy(Request $request, $id) {
-    	$task = Task::find($id);
-    	$task->delete();
-
-        $user = $request->user();
-        $user->decrement('task_count');
-        $user->save();
-
-    	return redirect('/');
     }
 
     public function my() {

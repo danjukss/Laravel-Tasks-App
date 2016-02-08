@@ -46,7 +46,7 @@ class User extends Authenticatable
         return ($group->permissions == $roles[$role]) ? true : false;
     }
 
-    public function lastSeen() {
+    public function last_seen() {
         $user = Auth::user();
         $diff = Carbon::now()->diffInMinutes(Carbon::parse($user->last_seen));
 

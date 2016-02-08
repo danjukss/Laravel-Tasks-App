@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
-use Validator;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -21,20 +21,14 @@ class ProfileController extends Controller
     	return view('profile.edit', compact('user'));
     }
 
-     public function update(Requests\UpdateProfileRequest $request, $id) {
-    	$user = $request->user();
-
-    	$user->name = $request->name;
-    	$user->lastname = $request->lastname;
-
-    	$user->save();
-
-        $user->last_activity()->create([
+     public function update(Requests\UpdateProfileRequest $request, User $profile) {
+    	$profile->name = $request->name;
+    	$profile->lastname = $request->lastname;
+    	$profile->save();
+        $profile->last_activity()->create([
             'type' => 'profile',
-            'place_id' => $user->id
+            'place_id' => $profile->id
         ]);
-
-    	$request->session()->flash('update_profile', "Profils tika veiksmīgi izlabots!");
-    	return redirect('/profile/' . $id . '/edit');
+    	return redirect()->back()->withSuccess('Profils tika veiksmīgi izlabots!');
     }
 }
